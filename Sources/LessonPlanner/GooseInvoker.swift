@@ -18,12 +18,11 @@ struct GooseInvoker {
         
         // Invoke goose run with the prompt text
         let process = Process()
-        process.executableURL = URL(fileURLWithPath: "/usr/bin/env")
+        process.executableURL = URL(fileURLWithPath: "/usr/local/bin/goose")
         process.arguments = [
-            "goose",
             "run",
             "--text", prompt,
-            "--provider", "anthropic",
+            "--provider", "databricks",
             "--model", model
         ]
         process.currentDirectoryURL = URL(fileURLWithPath: workingDir)
