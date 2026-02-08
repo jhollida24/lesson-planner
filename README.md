@@ -15,17 +15,35 @@ Lesson Planner takes a lesson specification (a single Markdown file) and generat
 
 ```bash
 cd lesson-planner
+swift build
+```
+
+The executable will be at:
+- `.build/arm64-apple-macosx/debug/lesson-planner` (Apple Silicon)
+- `.build/x86_64-apple-macosx/debug/lesson-planner` (Intel Mac)
+
+For release builds:
+```bash
 swift build -c release
 ```
 
-The executable will be at `.build/release/lesson-planner`.
+The release executable will be at:
+- `.build/arm64-apple-macosx/release/lesson-planner` (Apple Silicon)
+- `.build/x86_64-apple-macosx/release/lesson-planner` (Intel Mac)
 
 ## Usage
 
 ### Generate a Lesson Repository
 
 ```bash
-lesson-planner generate \
+# Using the built executable (adjust path for your architecture)
+.build/arm64-apple-macosx/debug/lesson-planner generate \
+  --lesson regex-performance \
+  --target-repo ~/Development/demo-repos/regex-perf \
+  --branch lesson-20250116-143022
+
+# Or use swift run (slower, rebuilds if needed)
+swift run lesson-planner generate \
   --lesson regex-performance \
   --target-repo ~/Development/demo-repos/regex-perf \
   --branch lesson-20250116-143022
@@ -34,7 +52,7 @@ lesson-planner generate \
 ### With Options
 
 ```bash
-lesson-planner generate \
+.build/arm64-apple-macosx/debug/lesson-planner generate \
   --lesson regex-performance \
   --target-repo ~/Development/demo-repos/regex-perf \
   --branch lesson-$(date +%Y%m%d-%H%M%S) \
