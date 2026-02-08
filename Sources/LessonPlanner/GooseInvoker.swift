@@ -16,20 +16,17 @@ struct GooseInvoker {
         let promptFile = "\(workingDir)/.lesson-planner-prompt.md"
         try prompt.write(toFile: promptFile, atomically: true, encoding: .utf8)
         
-        // Invoke goose with the prompt
+        // Invoke goose run with the prompt text
         let process = Process()
         process.executableURL = URL(fileURLWithPath: "/usr/bin/env")
         process.arguments = [
             "goose",
-            "session",
-            "start",
-            "--profile", model
+            "run",
+            "--text", prompt,
+            "--provider", "anthropic",
+            "--model", model
         ]
         process.currentDirectoryURL = URL(fileURLWithPath: workingDir)
-        
-        // Set up pipes for input
-        let inputPipe = Pipe()
-        process.standardInput = inputPipe
         
         // Set up pipes for output
         let outputPipe = Pipe()
@@ -39,12 +36,6 @@ struct GooseInvoker {
         
         // Start the process
         try process.run()
-        
-        // Write the prompt to stdin
-        if let data = prompt.data(using: .utf8) {
-            inputPipe.fileHandleForWriting.write(data)
-            try inputPipe.fileHandleForWriting.close()
-        }
         
         // Read output in real-time
         let outputHandle = outputPipe.fileHandleForReading
