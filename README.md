@@ -33,10 +33,15 @@ The release executable will be at:
 
 ## Usage
 
+**Important**: Run these commands from the `lesson-planner` repository directory, not from the generated lesson repository.
+
 ### Generate a Lesson Repository
 
 ```bash
-# Using the built executable (adjust path for your architecture)
+# Navigate to lesson-planner directory
+cd /path/to/lesson-planner
+
+# Using the built executable (Apple Silicon)
 .build/arm64-apple-macosx/debug/lesson-planner generate \
   --lesson regex-performance \
   --target-repo ~/Development/demo-repos/regex-perf \

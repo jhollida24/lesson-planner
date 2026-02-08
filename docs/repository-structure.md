@@ -49,7 +49,9 @@ Every lesson repository should have commits in this order:
 
 **Purpose**: Create a fully working project with performance issues
 
-**Requirements**:
+**CRITICAL REQUIREMENTS**:
+- **Must initialize git repository if it doesn't exist** (`git init`)
+- **Must include Xcode project (`.xcodeproj`) if the project type requires it** (iOS apps, macOS apps)
 - Must compile successfully
 - Must run on simulator/device
 - Must demonstrate the performance problems
@@ -57,11 +59,13 @@ Every lesson repository should have commits in this order:
 - Must pass all tests
 
 **Contents**:
+- Git repository initialization (if needed)
 - Complete project structure
+- **Xcode project files (`.xcodeproj/project.pbxproj`)** for iOS/macOS apps
 - All source files with performance issues
 - Tests
 - README with basic build instructions
-- Package.swift and/or .xcodeproj
+- Package.swift for SPM support
 
 **Example commit message**:
 ```
@@ -73,19 +77,7 @@ This project demonstrates three performance problems:
 3. Duplicate parsing in URLRedactor
 ```
 
-### 2. Xcode Project Commit (if applicable)
-
-**Purpose**: Add Xcode project so the app can be built from the start
-
-**Requirements**:
-- Must come immediately after initial state
-- Must build successfully
-- Must not change any source code
-
-**Example commit message**:
-```
-Add Xcode project for iOS app
-```
+**Note**: There is NO separate "Add Xcode project" commit. The Xcode project must be part of the initial state so the project can be built and profiled from the very first commit.
 
 ### 3-N. Optimization Commits
 
@@ -106,33 +98,32 @@ in an Action struct and reusing it for logging and
 permission checks.
 ```
 
-### N+1. Lesson Documentation Commit
+### N+1. Final Commit: Complete LESSON.md with Correct Links
 
-**Purpose**: Add complete LESSON.md tutorial
+**Purpose**: Add complete LESSON.md tutorial with correct commit links
 
-**Requirements**:
+**CRITICAL REQUIREMENTS**:
+- **This must always be the final commit**
+- **Must link to actual commit hashes from all previous commits**
 - Must follow the lesson structure specification
 - Must include all required sections
-- Must use placeholder commit links (will be updated in next commit)
+- Must include complete README.md with build/run/profile instructions
+- All commit links must be verified to work
+
+**Process**:
+1. Get all commit hashes: `git log --oneline`
+2. Generate LESSON.md with correct links to each optimization commit
+3. Update README.md with correct commit links
+4. Commit both files
 
 **Example commit message**:
 ```
 Add performance optimization guide
+
+Complete tutorial with links to all optimization commits.
 ```
 
-### N+2. Update Documentation Commit
-
-**Purpose**: Update README and LESSON.md with correct commit hashes
-
-**Requirements**:
-- Update all commit links with actual hashes
-- Verify all links work
-- Ensure README has complete build/run/profile instructions
-
-**Example commit message**:
-```
-Update documentation with commit links
-```
+**Note**: There is NO separate "update documentation" commit. The LESSON.md must be created with the correct commit hashes from the start, making it the final commit in the repository.
 
 ---
 
@@ -447,7 +438,12 @@ Verify:
 
 **Structure**: Dual build system, clear separation, organized by component
 
-**Commits**: Initial state → Xcode project → Optimizations → Lesson → Update docs
+**Commits**: 
+1. Initial state (with git init + Xcode project if needed)
+2. Optimization 1
+3. Optimization 2
+4. Optimization N
+5. Final commit: LESSON.md with correct commit links
 
 **Validation**: Build, test, and functional checks at every commit
 

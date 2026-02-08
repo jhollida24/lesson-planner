@@ -348,40 +348,46 @@ I want to remove isCapableOfRedacting and have redact() return an enum indicatin
 ## Commit 1: Initial State
 **ID**: initial
 **Message**: Add initial project with performance issues
-**Description**: Create fully buildable iOS app with intentional performance problems. See "Initial State" section for complete requirements. Include detailed comments explaining each performance issue.
+**Description**: 
+- **Initialize git repository** if it doesn't exist (`git init`)
+- **Include Xcode project** (`RegexPerformance.xcodeproj`) so the app can be built from the start
+- Create fully buildable iOS app with intentional performance problems
+- Include detailed comments explaining each performance issue
+- See "Initial State" section for complete requirements
 
-## Commit 2: Xcode Project
-**ID**: xcode-project
-**Message**: Add Xcode project for iOS app
-**Description**: Add Xcode project so the app can be built and profiled from the start. This commit should come immediately after the initial state so every commit in the history can be built in Xcode.
+This is the foundation commit that must include everything needed to build, run, and profile the app.
 
-## Commit 3: Optimization 1
+## Commit 2: Optimization 1
 **ID**: opt-1
 **Message**: Reuse parsed routes in FeaturePresenter
 **Optimization**: opt-1
 **Description**: Eliminate redundant parsing by caching the parsed route in an Action struct and reusing it for logging and permission checks.
 
-## Commit 4: Optimization 2
+## Commit 3: Optimization 2
 **ID**: opt-2
 **Message**: Pre-compile regex patterns in RouteMatcher
 **Optimization**: opt-2
 **Description**: Store NSRegularExpression instances instead of strings to eliminate repeated compilation overhead. Trade ~1MB persistent memory for significant speed gain.
 
-## Commit 5: Optimization 3
+## Commit 4: Optimization 3
 **ID**: opt-3
 **Message**: Eliminate duplicate parsing in URLRedactor
 **Optimization**: opt-3
 **Description**: Remove isCapableOfRedacting method and have redact() return a Result enum, collapsing two parse operations into one.
 
-## Commit 6: Lesson Documentation
+## Commit 5: Final - Complete LESSON.md
 **ID**: lesson
 **Message**: Add performance optimization guide
-**Description**: Add LESSON.md with complete tutorial following the structure in "Lesson Structure" section. Include all sections, prompts, placeholders, and stylized diffs.
+**Description**: 
+- **This must be the final commit**
+- Get all commit hashes from previous commits: `git log --oneline`
+- Add LESSON.md with complete tutorial following the structure in "Lesson Structure" section
+- **Include correct commit links** to all previous commits
+- Update README.md with correct commit links
+- Include all sections, prompts, placeholders, and stylized diffs
+- Verify all links work
 
-## Commit 7: Update Documentation
-**ID**: docs
-**Message**: Update documentation with commit links
-**Description**: Update README and LESSON.md with correct commit hashes from the actual commits. Ensure all links work and point to the correct branch.
+This is the last commit in the repository. All commit links must point to actual hashes.
 
 ---
 
